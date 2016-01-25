@@ -1,3 +1,3 @@
 # todo-app
 
-A simple todo-app using an Ionic mobile front-end and a NodeJS API (Express+MongoDB) as back-end.
+A simple todo-app using Ionic as a mobile front-end and a NodeJS API as back-end. This project is a WIP and is being developed only as a learning product.
