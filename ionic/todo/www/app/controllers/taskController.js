@@ -1,11 +1,12 @@
 angular.module('taskController', ['taskService', 'authService'])
 
-.controller('taskCtrl', function(Task, $scope, $rootScope, $state, $ionicHistory) {
+.controller('taskCtrl', function(Task, $scope, $rootScope, $state, $ionicHistory, $window) {
 
     //Initialize the task scope with empty object
     $scope.task = {};
 
     $scope.newTask = function() {
+        $window.alert('been here');
         $state.go('newTask');
     }
 
