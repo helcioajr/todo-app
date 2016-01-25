@@ -1,0 +1,61 @@
+.custom {
+  background: url('../img/menu-background.png')!important;;
+  background-attachment: fixed;
+  background-position: center;
+ }
+
+ .custom .item {
+  background-color: transparent;
+  /* border:none;   Removes all borders*/
+  color: white;    /*Text color for each item*/
+  border-bottom: 1px white solid;
+  border-width: thin;
+}
+
+.custom .item-complex .item-content, .dark .item-radio .item-content {
+  background-color: transparent;
+}
+
+/*Changes the border for the last item*/
+.custom .item:last-child {
+  border-bottom: 0px solid;
+}
+
+
+.login-icon {
+    position: absolute;
+    top: 260px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.menu-item  {
+    position: absolute;
+    bottom: 21px;
+}
+
+.login-form {
+    position: absolute;
+    top: 290px;
+    width: 100%;
+}
+
+.menu-icons {
+    margin-right: 10px;
+    font-size: 30px;
+}
+
+.user-icon {
+    margin-right: 10px;
+    font-size: 60px;
+}
+
+.user-name {
+    position: absolute;
+    bottom: 37px;
+    font-size: 23px;
+    left: 68px;
+
+}

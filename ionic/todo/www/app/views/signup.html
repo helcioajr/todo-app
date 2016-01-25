@@ -1,0 +1,25 @@
+<ion-view view-title="Signup" cache-view="false">
+    <ion-nav-bar>
+        <ion-nav-buttons side="left">
+            <button class="button-clear" ng-click="goBack()">
+                <i class="button icon-left ion-chevron-left button-clear button-dark"></i>
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content>
+        <form method="post" ng-submit="doSignup()">
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <input type="text" placeholder="Name" ng-model="userData.name">
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Username" ng-model="userData.username">
+                </label>
+                <label class="item item-input">
+                    <input type="password" placeholder="Password" ng-model="userData.password">
+                </label>
+                <button type="submit" class="button button-block button-calm">Signup</button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

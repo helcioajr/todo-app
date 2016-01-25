@@ -1,0 +1,33 @@
+<ion-view cache-view="false" title="Completed Tasks">
+<ion-nav-buttons side="left">
+<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+</ion-nav-buttons>
+<ion-nav-buttons side="right">
+<!-- New Task Button -->
+<button class="button button-icon" ng-click="openTaskModal()">
+<i class="icon ion-compose"></i>
+</button>
+</ion-nav-buttons>
+<ion-content class="has-header" ng-init="getTasks()">
+<div class="list card animate slideInUp" ng-repeat="task in tasks | filter:{completed:'true'}">
+  <div class="item item-divider ">
+    <span ng-bind="task.title"></span>
+  </div>
+  <div class="item item-body">
+    <p>
+      <span ng-bind="task.content"></span>
+    </p>
+  </div>
+  <div class="item tabs tabs-secondary tabs-icon-left">
+    <span class="item item-checkbox">
+      <label class="checkbox">
+        <input type="checkbox" ng-model="task.completed" ng-change="completeTask($index)">
+      </label>
+    </span>
+    <a class="tab-item assertive" ng-click="removeTask($index)">
+      <i class="icon ion-android-close"></i>
+    </a>
+  </div>
+</div>
+</ion-content>
+</ion-view>
