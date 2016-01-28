@@ -1,27 +1,55 @@
-angular.module('taskController', ['taskService', 'authService'])
+angular.module('taskController', [])
 
-.controller('taskCtrl', function(Task, $scope, $rootScope, $state, $ionicHistory, $window) {
+.controller('taskCtrl', function(Task, Auth, List, $scope, $state, $stateParams, $ionicHistory, $ionicLoading) {
 
-    //Initialize the task scope with empty object
+    $scope.tasks = [];
     $scope.task = {};
 
-    $scope.newTask = function() {
-        $window.alert('been here');
-        $state.go('newTask');
-    }
+    $scope.list = {};
+
+    List.getList($stateParams.list_id).then(function(res) {
+        $scope.list = res.data;
+    });
+
+    $scope.show = function() {
+        $ionicLoading.show({
+            template: "<ion-spinner icon='ios'></ion-spinner>"
+        });
+    };
+    $scope.hide = function() {
+        $ionicLoading.hide();
+    };
+
+    //Get all tasks
+    $scope.show();
+    Task.getTasksByList($stateParams.list_id).then(function(res) {
+        $scope.tasks = res.data;
+        $scope.hide();
+    });
 
     $scope.goBack = function() {
         $ionicHistory.goBack();
     };
 
-    $scope.taskDetails = function() {
-        $state.go('app.taskDetail');
-    };
+    //Creates a new task
+    $scope.createTask = function() {
 
-    //Get all tasks
-    $scope.getTasks = function() {
-        Task.getAll().then(function(res) {
-            $scope.tasks = res.data;
+        var userId = "";
+
+        Auth.getUser().then(function(res) {
+            userId = res.data.id;
+        });
+
+        Task.create({
+            "title": $scope.task.title,
+            "creator": userId,
+            "list": $stateParams.list_id
+        }).then(function(err) {
+            if(err) {
+                console.log(err);
+            }
+            $scope.tasks.push($scope.task);
+            $scope.task = {};
         });
     };
 

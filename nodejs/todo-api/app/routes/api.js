@@ -1,7 +1,8 @@
-var Task = require('../models/task');
-var User = require('../models/user');
-var config = require('../../config');
-var jsonwebtoken = require('jsonwebtoken');
+var List = require("../models/list");
+var Task = require("../models/task");
+var User = require("../models/user");
+var config = require("../../config");
+var jsonwebtoken = require("jsonwebtoken");
 var secretKey = config.secretKey;
 
 function createToken(user) {
@@ -20,8 +21,9 @@ module.exports = function(app, express) {
 
 	var api = express.Router();
 
+	//Users
 	//User signup
-	api.post('/signup', function(req, res) {
+	api.post("/signup", function(req, res) {
 
 		var user = new User({
 			name: req.body.name,
@@ -39,18 +41,18 @@ module.exports = function(app, express) {
 
 			res.json({
 				success: true,
-				message: 'User has been created successfully.',
+				message: "User has been created successfully.",
 				token: token
 			});
 		});
 	});
 
 	//User login
-	api.post('/login', function(req, res) {
+	api.post("/login", function(req, res) {
 
 		User.findOne({
 			username: req.body.username
-		}).select('name username password').exec(function(err, user) {
+		}).select("name username password").exec(function(err, user) {
 
 			if (err) throw err;
 
@@ -79,25 +81,15 @@ module.exports = function(app, express) {
 				}
 			}
 		});
-	});;
-
-	//Get all tasks
-	api.get('/tasks', function(req, res) {
-		Task.find({}, function(err, tasks) {
-			if (err) {
-				res.send(err);
-				return;
-			}
-			res.json(tasks);
-		});
 	});
 
+	//Tasks
 	//Create a task
-	api.post('/createTask', function(req, res) {
+	api.post("/createTask", function(req, res) {
 		var task = new Task({
 			title: req.body.title,
-			content: req.body.content,
-			completed: req.body.completed
+			creator: req.body.creator,
+			list: req.body.list
 		});
 
 		task.save(function(err) {
@@ -106,15 +98,15 @@ module.exports = function(app, express) {
 				return;
 			}
 			res.json({
-				message: 'Task Created!'
+				message: "Task Created!"
 			});
 		});
 	});
 
 	//Remove a task
-	api.post('/removeTask', function(req, res) {
+	api.post("/removeTask", function(req, res) {
 		Task.remove({
-				'title': req.body.title
+				"title": req.body.title
 			},
 
 			function(err) {
@@ -123,19 +115,19 @@ module.exports = function(app, express) {
 					return;
 				}
 				res.send({
-					message: 'Task removed!'
+					message: "Task removed!"
 				});
 			});
 	});
 
 	//Mark a task as completed
-	api.post('/completeTask', function(req, res) {
+	api.post("/completeTask", function(req, res) {
 		Task.update({
-				'title': req.body.title
+				"title": req.body.title
 			},
 
 			{
-				'completed': req.body.completed
+				"completed": req.body.completed
 			},
 
 			function(err) {
@@ -144,19 +136,55 @@ module.exports = function(app, express) {
 					return;
 				}
 				res.send({
-					message: 'Task updated!'
+					message: "Task updated!"
 				});
 			});
 	});
 
+	//Task lists
+	//Create a list 
+	api.post("/createList", function(req, res) {
+		var list = new List({
+			title: req.body.title,
+			creator: req.body.creator
+		});
+
+		console.log(res);
+
+		list.save(function(err) {
+			if (err) {
+				console.log(err);
+				res.send(err);
+				return;
+			}
+
+			res.json({
+				message: "List created!"
+			});
+		});
+	});
+
+	//Remove a list
+	api.post("/removeList", function(req, res) {
+		List.remove({
+			"_id": req.body.id
+		}, function(err) {
+			if (err) {
+				res.send(err);
+				return;
+			}
+			res.send({
+				message: "List Removed!"
+			});
+		});
+	});
 
 	// Middleware
 	api.use(function(req, res, next) {
 
-		var token = req.body.token || req.params.token || req.headers['x-access-token'];
+		var token = req.body.token || req.params.token || req.headers["x-access-token"];
 
 		if (token) {
-
 			jsonwebtoken.verify(token, secretKey, function(err, decoded) {
 
 				if (err) {
@@ -164,14 +192,11 @@ module.exports = function(app, express) {
 						success: false,
 						message: "Failed to authenticate user."
 					});
-
 				}
 				else {
-
 					req.decoded = decoded;
 					next();
 				}
-
 			});
 		}
 		else {
@@ -182,8 +207,62 @@ module.exports = function(app, express) {
 		}
 	});
 
-	api.get('/me', function(req, res) {
+	//Get user
+	api.get("/me", function(req, res) {
 		res.json(req.decoded);
+	});
+
+	//Get user tasks
+	api.get("/tasks", function(req, res) {
+		Task.find({}, function(err, tasks) {
+			if (err) {
+				res.send(err);
+				return;
+			}
+			res.json(tasks);
+		});
+	});
+
+	//Get tasks by list id
+	api.get("/tasks/:list_id", function(req, res) {
+		var list_id = req.params.list_id;
+		Task.find({
+			list: list_id
+		}, function(err, tasks) {
+			if (err) {
+				res.send(err);
+				return;
+			}
+			res.json(tasks);
+		});
+	});
+
+
+	//Get user task lists
+	api.get("/lists", function(req, res) {
+		List.find({
+			"creator": req.decoded.id
+		}, function(err, lists) {
+			if (err) {
+				res.send(err);
+				return;
+			}
+			res.json(lists);
+		});
+	});
+
+	//Get list by id
+	api.get("/lists/:list_id", function(req, res) {
+		var list_id = req.params.list_id;
+		List.findOne({
+			_id: list_id
+		}, function(err, list) {
+			if (err) {
+				res.send(err);
+				return;
+			}
+			res.json(list);
+		});
 	});
 
 	return api;

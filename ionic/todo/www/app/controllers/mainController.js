@@ -1,15 +1,14 @@
-angular.module('mainController', ['ionic', 'authService'])
+angular.module('mainController', [])
 
-.controller('mainCtrl', function($scope, $rootScope, Auth, $state, $ionicHistory) {
+.controller('mainCtrl', function($scope, Auth, $state, $ionicHistory) {
 
     $scope.loginData = {};
-
-    $scope.user = {};
-
+  
     $scope.goBack = function() {
         $ionicHistory.goBack();
     };
-
+    
+    $scope.user = {};
     Auth.getUser().then(function(res) {
         $scope.user = res.data;
     });
@@ -24,7 +23,7 @@ angular.module('mainController', ['ionic', 'authService'])
         Auth.login($scope.loginData.username, $scope.loginData.password)
             .then(function(res) {
                 if (res.data.success) {
-                    $state.go('app.tasks');
+                    $state.go('app.lists');
                 }
                 else {
                     $scope.error = res.message;

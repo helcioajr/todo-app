@@ -1,0 +1,27 @@
+<ion-view cache-view="false" name="app.lists" view-title="Lists">
+  <ion-nav-bar class="bar-stable">
+    <ion-nav-buttons side="left">
+      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button class="button button-icon" ng-click="openModal()">
+        <i class="icon ion-ios-plus-outline positive"></i>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content class="has-header">
+    <ion-list>
+      <ion-item ng-repeat="list in lists" class="list-tile">
+          <div class="row" ng-click="goToListTasks($index)">
+            <div class="col col-80">
+              <span class="list-title">{{ list.title }}</span>
+            </div>
+            <div class="col col-20">
+                <i class="ion-icon ion-ios-arrow-forward"></i>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,34 +1,32 @@
-<ion-view cache-view="false" name="app.tasks" title="All Tasks">
-  <ion-nav-bar>
-    <ion-nav-buttons side="left">
-      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-    </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-      <button class="button button-icon" ui-sref='newTask'>
-        <i class="icon ion-compose"></i>
-      </button>
-    </ion-nav-buttons>
-  </ion-nav-bar>
-  <ion-content class="has-header" ng-init="getTasks()">
-    <div class="list card" ng-repeat="task in tasks track by $index" ng-click="taskDetail()">
-      <div class="item item-divider ">
-        <span ng-bind="task.title"></span>
-      </div>
-      <div class="item item-body">
-        <p>
-          <span ng-bind="task.content"></span>
-        </p>
-      </div>
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <span class="item item-checkbox">
-      <label class="checkbox">
-        <input type="checkbox" ng-model="task.completed" ng-change="completeTask($index)">
-      </label>
-    </span>
-        <a class="tab-item assertive" ng-click="removeTask($index)">
-          <i class="icon ion-android-close"></i>
-        </a>
-      </div>
-    </div>
-  </ion-content>
+<ion-view cache-view="false" name="app.tasks" title="{{list.title}}">
+    <ion-nav-bar class="bar-stable">
+        <ion-nav-buttons side="left">
+            <button class="button-clear" ng-click="goBack()">
+                <i class="button icon-left ion-chevron-left button-clear"></i>
+            </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content class="has-header">
+        <form ng-submit="createTask()">
+            <div class="row row-task">
+                <div class="col col-10">
+                    <button class="button button-icon">
+                        <i class="icon ion-ios-compose-outline calm"></i>
+                    </button>
+                </div>
+                <div class="col col-90">
+                    <input ng-model="task.title" class="input-task" type="text" placeholder="Type to add a new task">
+                </div>
+            </div>
+        </form>
+        <ion-list>
+            <ion-item ng-repeat="task in tasks">
+                <div>
+                    {{ task.title }}
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

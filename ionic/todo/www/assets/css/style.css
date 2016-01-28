@@ -1,26 +1,30 @@
 .custom {
-  background: url('../img/menu-background.png')!important;;
-  background-attachment: fixed;
-  background-position: center;
- }
-
- .custom .item {
-  background-color: transparent;
-  /* border:none;   Removes all borders*/
-  color: white;    /*Text color for each item*/
-  border-bottom: 1px white solid;
-  border-width: thin;
+    background: url('../img/menu-background.png')!important;
+    ;
+    background-attachment: fixed;
+    background-position: center;
 }
 
-.custom .item-complex .item-content, .dark .item-radio .item-content {
-  background-color: transparent;
+.custom .item {
+    background-color: transparent;
+    /* border:none;   Removes all borders*/
+    color: white;
+    /*Text color for each item*/
+    border-bottom: 1px white solid;
+    border-width: thin;
 }
+
+.custom .item-complex .item-content,
+.dark .item-radio .item-content {
+    background-color: transparent;
+}
+
 
 /*Changes the border for the last item*/
-.custom .item:last-child {
-  border-bottom: 0px solid;
-}
 
+.custom .item:last-child {
+    border-bottom: 0px solid;
+}
 
 .login-icon {
     position: absolute;
@@ -31,7 +35,7 @@
     margin: auto;
 }
 
-.menu-item  {
+.menu-item {
     position: absolute;
     bottom: 21px;
 }
@@ -57,5 +61,59 @@
     bottom: 37px;
     font-size: 23px;
     left: 68px;
+}
 
+.list-title {
+    font-weight: 700;
+}
+
+.list-tile {
+    padding: 8px !important;
+}
+
+.ion-ios-arrow-forward:before {
+    position: absolute;
+    right: 16px;
+    bottom: 18px;
+    font-size: 20px;
+    color: #777;
+}
+
+.list-modal {
+    width: 90%;
+    height: 90%;
+    top: 20%;
+    left: 5%;
+    right: 5%;
+    bottom: auto;
+    background: transparent;
+}
+
+.col-90 {
+    padding-top: 12px;
+    padding-left: 12px;
+}
+
+.input-task {
+    width: 100%;
+    background-color: #fbfbfb;
+}
+
+.row-task {
+    padding: 0px!important;
+    background-color: #fbfbfb;
+}
+
+
+/** FORCE THE MODAL */
+
+.active .modal-backdrop-bg {
+    opacity: 0.5;
+}
+
+.modal-backdrop-bg {
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    background-color: #000;
+    opacity: 0;
 }

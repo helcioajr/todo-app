@@ -1,7 +1,5 @@
 <ion-side-menus>
     <ion-pane ion-side-menu-content>
-        <ion-nav-bar class="bar-light">
-        </ion-nav-bar>
         <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
     </ion-pane>
     <ion-side-menu side="left">
@@ -13,11 +11,11 @@
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.tasks">
                     <i class="ion-ios-list-outline menu-icons"></i>
-                    <span class="menu-item">All Tasks</span>
+                    <span class="menu-item">Lists</span>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="app.completed">
-                    <i class="ion-ios-checkmark-outline menu-icons"></i>
-                    <span class="menu-item">Completed Tasks</span>
+                    <i class="ion-ios-gear-outline menu-icons"></i>
+                    <span class="menu-item">Settings</span>
                 </ion-item>
                 <ion-item nav-clear menu-close ui-sref="login" ng-click="doLogout()">Logout
                 </ion-item>

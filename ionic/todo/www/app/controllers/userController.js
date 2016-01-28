@@ -1,4 +1,4 @@
-angular.module('userController', ['userService', 'LocalStorageModule'])
+angular.module('userController', [])
 
 .controller('userCtrl', function(User, localStorageService, $scope, $state, $ionicHistory) {
 

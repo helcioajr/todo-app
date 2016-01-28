@@ -1,60 +1,53 @@
-angular.module('appRoutes', [])
+angular.module("appRoutes", [])
 
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
 
-        .state('app', {
-            url: '/app',
+        .state("app", {
+            url: "/app",
             abstract: true,
-            templateUrl: 'app/views/menu.html',
-            controller: 'mainCtrl'
+            templateUrl: "app/views/menu.html",
+            controller: "mainCtrl"
         })
-        .state('app.tasks', {
-            url: "/tasks",
+        .state("app.lists", {
+            url: "/lists",
             views: {
-                'menuContent': {
-                    templateUrl: "app/views/tasks.html",
-                    controller: 'taskCtrl'
+                "menuContent": {
+                    templateUrl: "app/views/lists.html",
+                    controller: "listCtrl"
                 }
             }
         })
-        .state('app.completed', {
+        .state("app.tasks", {
+            url: "/tasks/:list_id",
+            views: {
+                "menuContent": {
+                    templateUrl: "app/views/tasks.html",
+                    data: {
+                        list_id: "list_id"
+                    },
+                    controller: "taskCtrl"
+                }
+            }
+        })
+        .state("app.completed", {
             url: "/completed",
             views: {
-                'menuContent': {
+                "menuContent": {
                     templateUrl: "app/views/completed.html",
-                    controller: 'taskCtrl'
+                    controller: "taskCtrl"
                 }
             }
         })
-        .state('app.taskDetail', {
-            url: "/taskdetail",
-            views: {
-                'menuContent': {
-                    templateUrl: "app/views/task-detail.html",
-                    controller: 'taskCtrl'
-                }
-            }
+        .state("login", {
+            url: "/login",
+            templateUrl: "app/views/login.html",
+            controller: "mainCtrl"
         })
-        .state('login', {
-            url: '/login',
-            templateUrl: 'app/views/login.html',
-            controller: 'mainCtrl'
-        })
-        .state('signup', {
-            url: '/signup',
-            templateUrl: 'app/views/signup.html',
-            controller: 'userCtrl'
-        })
-        .state('newTask', {
-            url: "/new-task",
-            templateUrl: "app/views/new-task.html",
-            controller: 'newTaskCtrl'
-        })
-        .state('taskDetail', {
-            url: "/task-detail",
-            templateUrl: "app/views/task-detail.html",
-            controller: 'taskCtrl'
+        .state("signup", {
+            url: "/signup",
+            templateUrl: "app/views/signup.html",
+            controller: "userCtrl"
         });
 
     $urlRouterProvider.otherwise("/login");
