@@ -7,17 +7,16 @@
             <ion-list>
                 <ion-item nav-clear menu-close>
                     <i class="ion-ios-person user-icon"></i>
-                    <span class="user-name">{{ user.name }}</span>
+                    <span class="username">{{ user.name }}</span>
+                    <span class="logout" ui-sref="login" ng-click="doLogout()">Logout</span>
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.tasks">
+                <ion-item nav-clear menu-close ui-sref="app.lists">
                     <i class="ion-ios-list-outline menu-icons"></i>
                     <span class="menu-item">Lists</span>
                 </ion-item>
-                <ion-item nav-clear menu-close ui-sref="app.completed">
+                <ion-item nav-clear menu-close ui-sref="app.settings">
                     <i class="ion-ios-gear-outline menu-icons"></i>
                     <span class="menu-item">Settings</span>
-                </ion-item>
-                <ion-item nav-clear menu-close ui-sref="login" ng-click="doLogout()">Logout
                 </ion-item>
             </ion-list>
         </ion-content>

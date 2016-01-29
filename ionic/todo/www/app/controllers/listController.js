@@ -6,15 +6,6 @@ angular.module("listController", [])
     $scope.list = {};
     $scope.user = {};
 
-    $scope.show = function() {
-        $ionicLoading.show({
-            template: "<ion-spinner icon='ios'></ion-spinner>"
-        });
-    };
-    $scope.hide = function() {
-        $ionicLoading.hide();
-    };
-
     Auth.getUser().then(function(res) {
         $scope.user = res.data;
     });
@@ -40,10 +31,8 @@ angular.module("listController", [])
     };
 
     //Get all lists
-    $scope.show();
     List.getAll().then(function(res) {
         $scope.lists = res.data;
-        $scope.hide();
     });
 
     //Creates a new list

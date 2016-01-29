@@ -8,8 +8,16 @@ angular.module('taskService', [])
         return $http.get(apiUrl + '/tasks');
     };
 
+    taskFactory.getTaskById = function(taskId) {
+        return $http.get(apiUrl + '/tasks/id/' + taskId);
+    };
+
+    taskFactory.getTasksByUser = function(creatorId) {
+        return $http.get(apiUrl + '/tasks/user/' + creatorId);
+    };
+
     taskFactory.getTasksByList = function(listId) {
-        return $http.get(apiUrl + '/tasks/' + listId);
+        return $http.get(apiUrl + '/tasks/list/' + listId);
     };
 
     taskFactory.create = function(taskData) {
@@ -25,5 +33,4 @@ angular.module('taskService', [])
     };
 
     return taskFactory;
-
-})
+});

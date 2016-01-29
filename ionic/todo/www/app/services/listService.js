@@ -9,7 +9,7 @@ angular.module('listService', [])
     };
     
     listFactory.getList = function(listId) {
-        return  $http.get(apiUrl+ '/lists/' + listId);
+        return  $http.get(apiUrl+ '/lists/id/' + listId);
     };
 
     listFactory.create = function(listData) {
@@ -21,5 +21,4 @@ angular.module('listService', [])
     };
     
     return listFactory;
-    
-})
+});

@@ -75,7 +75,7 @@ module.exports = function(app, express) {
 
 					res.json({
 						success: true,
-						message: "User uccessfully logged in!",
+						message: "User successfully logged in!",
 						token: token
 					});
 				}
@@ -123,22 +123,18 @@ module.exports = function(app, express) {
 	//Mark a task as completed
 	api.post("/completeTask", function(req, res) {
 		Task.update({
-				"title": req.body.title
-			},
-
-			{
-				"completed": req.body.completed
-			},
-
-			function(err) {
-				if (err) {
-					res.send(err);
-					return;
-				}
-				res.send({
-					message: "Task updated!"
-				});
+			"_id": req.body._id
+		}, {
+			"completed": req.body.completed
+		}, function(err) {
+			if (err) {
+				res.send(err);
+				return;
+			}
+			res.send({
+				message: "Task updated!"
 			});
+		});
 	});
 
 	//Task lists
@@ -212,7 +208,7 @@ module.exports = function(app, express) {
 		res.json(req.decoded);
 	});
 
-	//Get user tasks
+	//Get tasks
 	api.get("/tasks", function(req, res) {
 		Task.find({}, function(err, tasks) {
 			if (err) {
@@ -222,9 +218,38 @@ module.exports = function(app, express) {
 			res.json(tasks);
 		});
 	});
+	
+	// Get tasks by user
+	api.get("/tasks/user/:creator_id", function(req, res) {
+		var creator_id = req.params.creator_id;
+		Task.findOne({
+			creator: creator_id
+		}, function(err, tasks) {
+			if (err) {
+				res.send(err);
+				return;
+			}
+			res.json(tasks);
+		});
+	});
+	
+
+	// Get task by task_id
+	api.get("/tasks/id/:task_id", function(req, res) {
+		var task_id = req.params.task_id;
+		Task.findOne({
+			_id: task_id
+		}, function(err, tasks) {
+			if (err) {
+				res.send(err);
+				return;
+			}
+			res.json(tasks);
+		});
+	});
 
 	//Get tasks by list id
-	api.get("/tasks/:list_id", function(req, res) {
+	api.get("/tasks/list/:list_id", function(req, res) {
 		var list_id = req.params.list_id;
 		Task.find({
 			list: list_id
@@ -252,7 +277,7 @@ module.exports = function(app, express) {
 	});
 
 	//Get list by id
-	api.get("/lists/:list_id", function(req, res) {
+	api.get("/lists/id/:list_id", function(req, res) {
 		var list_id = req.params.list_id;
 		List.findOne({
 			_id: list_id

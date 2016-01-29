@@ -11,43 +11,26 @@ angular.module('taskController', [])
         $scope.list = res.data;
     });
 
-    $scope.show = function() {
-        $ionicLoading.show({
-            template: "<ion-spinner icon='ios'></ion-spinner>"
-        });
-    };
-    $scope.hide = function() {
-        $ionicLoading.hide();
-    };
-
     //Get all tasks
-    $scope.show();
     Task.getTasksByList($stateParams.list_id).then(function(res) {
         $scope.tasks = res.data;
-        $scope.hide();
     });
 
     $scope.goBack = function() {
-        $ionicHistory.goBack();
+        $state.go('app.lists');
     };
 
     //Creates a new task
     $scope.createTask = function() {
-
-        var userId = "";
-
         Auth.getUser().then(function(res) {
-            userId = res.data.id;
+            $scope.userId = res.data.id;
         });
 
         Task.create({
             "title": $scope.task.title,
-            "creator": userId,
+            "creator": $scope.userId,
             "list": $stateParams.list_id
-        }).then(function(err) {
-            if(err) {
-                console.log(err);
-            }
+        }).then(function() {
             $scope.tasks.push($scope.task);
             $scope.task = {};
         });
@@ -65,7 +48,7 @@ angular.module('taskController', [])
     //Updates a new task as completed
     $scope.completeTask = function(index) {
         Task.complete({
-            "title": $scope.tasks[index].title,
+            "_id": $scope.tasks[index]._id,
             "completed": $scope.tasks[index].completed
         });
     };

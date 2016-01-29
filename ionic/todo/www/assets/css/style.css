@@ -1,5 +1,5 @@
 .custom {
-    background: url('../img/menu-background.png')!important;
+    background: url('../img/menu-background.png');
     ;
     background-attachment: fixed;
     background-position: center;
@@ -17,6 +17,18 @@
 .custom .item-complex .item-content,
 .dark .item-radio .item-content {
     background-color: transparent;
+}
+
+.username {
+    position: absolute;
+    bottom: 43px;
+    left: 68px;
+    font-size: 23px;
+}
+
+.logout {
+    bottom: 24px;
+    left: 67px;
 }
 
 
@@ -56,19 +68,13 @@
     font-size: 60px;
 }
 
-.user-name {
-    position: absolute;
-    bottom: 37px;
-    font-size: 23px;
-    left: 68px;
-}
-
 .list-title {
     font-weight: 700;
 }
 
 .list-tile {
-    padding: 8px !important;
+    padding: 8px;
+    border: none;
 }
 
 .ion-ios-arrow-forward:before {
@@ -89,7 +95,7 @@
     background: transparent;
 }
 
-.col-90 {
+.input-col-90 {
     padding-top: 12px;
     padding-left: 12px;
 }
@@ -100,8 +106,22 @@
 }
 
 .row-task {
-    padding: 0px!important;
+    padding: 0px;
     background-color: #fbfbfb;
+}
+
+.task-item {
+    padding: 0px;
+    border: none;
+}
+
+.task-checkbox {
+    padding: 0px;
+}
+
+.task-col-90 {
+    padding-top: 9px;
+    padding-left: 14px;
 }
 
 
