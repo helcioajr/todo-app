@@ -11,14 +11,14 @@
   </ion-nav-bar>
   <ion-content class="has-header">
     <ion-list>
-      <ion-item ng-repeat="list in lists" class="list-tile">
-          <div class="row" ng-click="goToListTasks($index)">
-            <div class="col col-80">
-              <span class="list-title">{{ list.title }}</span>
-            </div>
-            <div class="col col-20">
-                <i class="ion-icon ion-ios-arrow-forward"></i>
-            </div>
+      <ion-item ng-repeat="list in lists track by $index" class="list-tile">
+        <div class="row" on-swipe-left="removeList($index)" ng-click="goToListTasks($index)">
+          <div class="col col-80">
+            <span class="list-title">{{ list.title }}</span>
+          </div>
+            <span class="task-counter">{{ list.active }}</span>
+          <div class="col col-20">
+            <i class="ion-icon ion-ios-arrow-forward"></i>
           </div>
         </div>
       </ion-item>

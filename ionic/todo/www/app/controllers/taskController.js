@@ -39,7 +39,9 @@ angular.module('taskController', [])
     //Removes a task
     $scope.removeTask = function(index) {
         Task.remove({
-            "title": $scope.tasks[index].title
+            "_id": $scope.tasks[index]._id,
+            "list": $scope.tasks[index].list,
+            "completed": $scope.tasks[index].completed
         }).then(function() {
             $scope.tasks.splice(index, 1);
         });
@@ -49,7 +51,8 @@ angular.module('taskController', [])
     $scope.completeTask = function(index) {
         Task.complete({
             "_id": $scope.tasks[index]._id,
-            "completed": $scope.tasks[index].completed
+            "completed": $scope.tasks[index].completed,
+            "list": $scope.tasks[index].list
         });
     };
 

@@ -7,17 +7,26 @@
         </ion-nav-buttons>
     </ion-nav-bar>
     <ion-content>
-        <form method="post" ng-submit="doSignup()">
+        <form name="signup" method="post" ng-submit="doSignup()">
             <div class="list list-inset">
                 <label class="item item-input">
-                    <input type="text" placeholder="Name" ng-model="userData.name">
+                    <input required name="name" type="text" placeholder="Name" ng-model="userData.name">
                 </label>
+                <div ng-messages="signup.name.$error" ng-if="signup.name.$touched">
+                    <p ng-message="required">Please enter your name</p>
+                </div>
                 <label class="item item-input">
-                    <input type="text" placeholder="Username" ng-model="userData.username">
+                    <input required name="username" type="text" placeholder="Username" ng-model="userData.username">
                 </label>
+                <div ng-messages="signup.username.$error" ng-if="signup.username.$touched">
+                    <p ng-message="required">Please enter your username</p>
+                </div>
                 <label class="item item-input">
-                    <input type="password" placeholder="Password" ng-model="userData.password">
+                    <input required name="password" type="password" placeholder="Password" ng-model="userData.password">
                 </label>
+                <div ng-messages="signup.password.$error" ng-if="signup.password.$touched">
+                    <p ng-message="required">Please enter your password</p>
+                </div>
                 <button type="submit" class="button button-block button-calm">Signup</button>
             </div>
         </form>

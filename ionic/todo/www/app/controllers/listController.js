@@ -1,6 +1,6 @@
 angular.module("listController", [])
 
-.controller("listCtrl", function(List, Auth, $rootScope, $scope, $state, $ionicHistory, $ionicModal, $ionicLoading, $ionicBackdrop) {
+.controller("listCtrl", function(List, Auth, Task, $rootScope, $scope, $state, $ionicHistory, $ionicModal, $ionicLoading, $ionicBackdrop) {
 
     $scope.lists = [];
     $scope.list = {};
@@ -50,10 +50,11 @@ angular.module("listController", [])
 
     //Removes a list
     $scope.removeList = function(index) {
+        console.log($scope.lists[index]._id);
         List.remove({
-            "title": $scope.list[index].title
+            "_id": $scope.lists[index]._id
         }).then(function() {
-            $scope.list.splice(index, 1);
+            $scope.lists.splice(index, 1);
         });
     };
 

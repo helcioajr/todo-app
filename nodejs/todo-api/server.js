@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-var config = require('./config')
+var config = require('./config');
 var mongoose = require('mongoose');
 var cors = require('cors');
 
@@ -16,9 +16,9 @@ app.use(morgan('dev'));
 
 mongoose.connect(config.database, function(err) {
     if (err) {
-        console.log(err)
+        console.log(err);
     } else {
-        console.log('Connected to remote database \'ds047095.mongolab.com:4709/todo-ionic\', node API running on PORT:' + config.port);
+        console.log('Connected to remote database \'ds055535.mongolab.com:55535/listodo-dev\', node API running on PORT:' + config.port);
     }
 });
 

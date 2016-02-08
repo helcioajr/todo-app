@@ -9,6 +9,7 @@ var ListSchema = new Schema({
         ref: "User"
     },
     title: String,
+    active: String,
     created: {
         type: Date,
         default: Date.now

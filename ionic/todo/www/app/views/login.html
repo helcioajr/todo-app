@@ -1,18 +1,23 @@
 <ion-view view-title="Login" cache-view="false" Title="Login">
-  <content scroll="false">
     <ion-content class="has-header">
       <div class="row">
-        <img src="assets/img/todo.png" class="login-icon">
+        <img src="assets/img/logo.png" class="login-icon">
       </div>
       <div class="row">
-        <form class="form-sigin login-form" method="post" ng-submit="doLogin()">
+        <form name="login" class="form-sigin login-form" method="post" ng-submit="doLogin()">
         <div class="list list-inset">
-          <label class="item item-input">
-            <input type="text" placeholder="Username" ng-model="loginData.username">
+          <label class="item">
+            <input required name="username" type="text" placeholder="Username" ng-model="loginData.username">
           </label>
-          <label class="item item-input">
-            <input type="password" placeholder="Password" ng-model="loginData.password">
+            <div ng-messages="login.username.$error" ng-if="login.username.$touched">
+              <p ng-message="required">Please enter your username</p>
+            </div>
+          <label class="item">
+            <input required name="password" type="password" placeholder="Password" ng-model="loginData.password">
           </label>
+          <div ng-messages="login.password.$error" ng-if="login.password.$touched">
+              <p ng-message="required">Please enter your password</p>
+            </div>
           <button type="submit" class="button button-block button-calm">Login</button>
           <button class="button button-block button-balanced" ui-sref="signup">Signup</button>
         </div>

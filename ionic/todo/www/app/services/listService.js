@@ -7,10 +7,10 @@ angular.module('listService', [])
     listFactory.getAll = function() {
         return $http.get(apiUrl + '/lists');
     };
-    
+
     listFactory.getList = function(listId) {
-        return  $http.get(apiUrl+ '/lists/id/' + listId);
-    };
+        return $http.get(apiUrl + '/lists/id/' + listId);
+  ;  }
 
     listFactory.create = function(listData) {
         return $http.post(apiUrl + '/createList', listData);
@@ -19,6 +19,6 @@ angular.module('listService', [])
     listFactory.remove = function(listData) {
         return $http.post(apiUrl + '/removeList', listData);
     };
-    
+
     return listFactory;
 });

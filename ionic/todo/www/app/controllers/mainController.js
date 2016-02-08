@@ -1,13 +1,13 @@
 angular.module('mainController', [])
 
-.controller('mainCtrl', function($scope, Auth, $state, $ionicHistory) {
+.controller('mainCtrl', function($scope, Auth, $state, $ionicHistory, $cordovaToast) {
 
     $scope.loginData = {};
-  
+
     $scope.goBack = function() {
         $ionicHistory.goBack();
     };
-    
+
     $scope.user = {};
     Auth.getUser().then(function(res) {
         $scope.user = res.data;
@@ -26,7 +26,10 @@ angular.module('mainController', [])
                     $state.go('app.lists');
                 }
                 else {
-                    $scope.error = res.message;
+                    $scope.error = res.data.message;
+                    $cordovaToast.show($scope.error, "long", "bottom").then(function() {
+                        console.log("native toast shown!");
+                    });
                 }
             });
     };

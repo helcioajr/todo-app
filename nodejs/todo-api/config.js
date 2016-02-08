@@ -1,5 +1,5 @@
 module.exports = {
-	'database': 'mongodb://ionic:ionic@ds047095.mongolab.com:47095/todo-ionic',
+	'database': 'mongodb://listodoapi:listodo123@ds055535.mongolab.com:55535/listodo-dev',
 	'port': process.env.PORT || 3000,
     'secretKey': 'feelslikeamillionaire'
 }

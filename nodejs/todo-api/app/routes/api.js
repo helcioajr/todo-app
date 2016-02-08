@@ -101,12 +101,45 @@ module.exports = function(app, express) {
 				message: "Task Created!"
 			});
 		});
+
+		var listActiveTasks = 0;
+
+		Task.find({
+			"list": req.body.list
+		}, function(err, list_tasks) {
+
+			if (err) {
+				console.log(err);
+			}
+
+			var total = Object.keys(list_tasks).length;
+			var completed = 0;
+			for (var i = 0; i < total; i++) {
+				if (list_tasks[i].completed && list_tasks[i].completed != undefined) {
+					completed++;
+				}
+			}
+
+			listActiveTasks = total - completed;
+
+			List.update({
+				_id: req.body.list
+			}, {
+				active: listActiveTasks.toString()
+			}, function(err) {
+				if (err) {
+					res.send(err);
+				}
+			});
+
+		});
+
 	});
 
 	//Remove a task
 	api.post("/removeTask", function(req, res) {
 		Task.remove({
-				"title": req.body.title
+				"_id": req.body._id
 			},
 
 			function(err) {
@@ -118,6 +151,38 @@ module.exports = function(app, express) {
 					message: "Task removed!"
 				});
 			});
+
+		var listActiveTasks = 0;
+
+		Task.find({
+			"list": req.body.list
+		}, function(err, list_tasks) {
+
+			if (err) {
+				console.log(err);
+			}
+
+			var total = Object.keys(list_tasks).length;
+			var completed = 0;
+			for (var i = 0; i < total; i++) {
+				if (list_tasks[i].completed && list_tasks[i].completed != undefined) {
+					completed++;
+				}
+			}
+
+			listActiveTasks = total - completed;
+
+			List.update({
+				_id: req.body.list
+			}, {
+				active: listActiveTasks.toString()
+			}, function(err) {
+				if (err) {
+					res.send(err);
+				}
+			});
+
+		});
 	});
 
 	//Mark a task as completed
@@ -135,6 +200,38 @@ module.exports = function(app, express) {
 				message: "Task updated!"
 			});
 		});
+
+		var listActiveTasks = 0;
+
+		Task.find({
+			"list": req.body.list
+		}, function(err, list_tasks) {
+
+			if (err) {
+				console.log(err);
+			}
+
+			var total = Object.keys(list_tasks).length;
+			var completed = 0;
+			for (var i = 0; i < total; i++) {
+				if (list_tasks[i].completed && list_tasks[i].completed != undefined) {
+					completed++;
+				}
+			}
+
+			listActiveTasks = total - completed;
+
+			List.update({
+				_id: req.body.list
+			}, {
+				active: listActiveTasks.toString()
+			}, function(err) {
+				if (err) {
+					res.send(err);
+				}
+			});
+
+		});
 	});
 
 	//Task lists
@@ -142,7 +239,8 @@ module.exports = function(app, express) {
 	api.post("/createList", function(req, res) {
 		var list = new List({
 			title: req.body.title,
-			creator: req.body.creator
+			creator: req.body.creator,
+			active: "0"
 		});
 
 		console.log(res);
@@ -163,7 +261,7 @@ module.exports = function(app, express) {
 	//Remove a list
 	api.post("/removeList", function(req, res) {
 		List.remove({
-			"_id": req.body.id
+			"_id": req.body._id
 		}, function(err) {
 			if (err) {
 				res.send(err);
@@ -218,7 +316,7 @@ module.exports = function(app, express) {
 			res.json(tasks);
 		});
 	});
-	
+
 	// Get tasks by user
 	api.get("/tasks/user/:creator_id", function(req, res) {
 		var creator_id = req.params.creator_id;
@@ -232,7 +330,7 @@ module.exports = function(app, express) {
 			res.json(tasks);
 		});
 	});
-	
+
 
 	// Get task by task_id
 	api.get("/tasks/id/:task_id", function(req, res) {
@@ -262,7 +360,6 @@ module.exports = function(app, express) {
 		});
 	});
 
-
 	//Get user task lists
 	api.get("/lists", function(req, res) {
 		List.find({
@@ -287,6 +384,33 @@ module.exports = function(app, express) {
 				return;
 			}
 			res.json(list);
+		});
+	});
+
+	//Get tasks status
+	api.get("/list/status/:list_id", function(req, res) {
+		var list_id = req.params.list_id;
+		Task.find({
+			list: list_id
+		}, function(err, list_tasks) {
+			if (err) {
+				res.send(err);
+				return;
+			}
+
+			var total = Object.keys(list_tasks).length;
+			var completed = 0;
+			for (var i = 0; i < total; i++) {
+				if (list_tasks[i].completed && list_tasks[i].completed != undefined) {
+					completed++;
+				}
+			}
+
+
+			res.json({
+				total: total,
+				completed: completed
+			});
 		});
 	});
 

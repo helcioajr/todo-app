@@ -12,9 +12,9 @@
         <form ng-submit="createTask()">
             <div class="row row-task">
                 <div class="col col-10">
-                    <button class="button button-icon">
+                    <div class="button button-icon">
                         <i class="icon ion-ios-compose-outline calm"></i>
-                    </button>
+                    </div>
                 </div>
                 <div class="col col-90 input-col-90">
                     <input ng-model="task.title" class="input-task" type="text" placeholder="Type to add a new task">
@@ -23,14 +23,14 @@
         </form>
         <ion-list>
             <ion-item class="task-item" ng-repeat="task in tasks track by $index">
-                <div class="row">
+                <div on-swipe-left="removeTask($index)" class="row">
                     <div class="col col-10">
                         <label class="checkbox task-checkbox">
                             <input type="checkbox" ng-model="task.completed" ng-click="completeTask($index)">
                         </label>
                     </div>
                     <div class="col col-90 task-col-90">
-                        <span>{{ task.title }} </span>
+                        <span ng-class="{ 'task-completed': task.completed }">{{ task.title }} </span>
                     </div>
                 </div>
             </ion-item>

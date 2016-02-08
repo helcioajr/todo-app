@@ -1,5 +1,5 @@
 // setup angular
-angular.module('todo', ['ionic', 'appRoutes', 'mainController', 'taskController', 'listController',
+angular.module('todo', ['ionic', 'appRoutes', 'ngCordova', 'ngMessages', 'mainController', 'taskController', 'listController',
     'userController', 'taskService', 'userService', 'authService', 'listService', 'LocalStorageModule', 'constants'
 ])
 
